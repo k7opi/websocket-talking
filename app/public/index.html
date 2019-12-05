@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" name="viewport">
+    <title>T</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        body,html{
+            margin: 0;
+            padding: 0;
+        }
+        #onlinecount{
+            position: fixed;
+        }
+        ::-webkit-scrollbar{
+            display: none;
+        }
+        .msg-system{
+            width: 200px;
+            border-radius: 3px;
+            background-color: rgb(209, 209, 209);
+            margin: 10px auto;
+            text-align: center;
+        }
+        .message{
+            position: relative;
+            color: #333;
+            overflow-y: scroll;
+        }
+        .message .user{
+            position: relative;
+            width: 40%;
+            margin-top: 10px;
+            margin-right: 10%;
+            margin-left: 50%;
+        }
+        .message .user .name{
+            text-align: right;
+            right: 10px;
+        }
+        .message .user .content{
+            text-align: left;
+            width: 100%;
+            background-color: rgb(191, 212, 252);
+            border: 1px solid rgb(191, 212, 252);
+            border-radius: 5px;
+            padding: 5px 5px 5px 5px;
+        }
+        .message .service{
+            width: 40%;
+            margin-top: 10px;
+            margin-left: 10%;
+            margin-right: 50%;
+        }
+        .message .service .name{
+            text-align: left;
+            left: 10px;
+        }
+        .message .service .content{
+            text-align: left;
+            width: 100%;
+            background-color: rgb(255, 214, 253);
+            border: 1px solid rgb(255, 214, 253);
+            border-radius: 5px;
+            padding: 5px 5px 5px 5px;
+        }
+        button{
+            -webkit-appearance: button;
+            cursor: pointer;
+        }
+        .button {
+            border: solid 1px #ddd;
+            background: transparent;
+            border-radius: 4px;
+            font-size: 14px;
+            padding: 6px 15px;
+            margin: 0;
+            display: inline-block;
+            line-height: 20px;
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1) 0s;
+        }
+        .action button {
+            padding: 10px 30px;
+            border-color: #0ae;
+            color: #fff;
+            background-color: #0ae;
+        }
+        .center{
+            width: 300px;
+            margin: 0 auto;
+        }
+        .center button{
+            border-color: #ddd;
+            color: #333;
+            background-color: #ddd;
+        }
+        .input-box{
+            text-align: right;
+        }
+        .input-box #content{
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="loginbox">
+    <div style="width:350px;margin:200px auto; text-align: center;">
+        请先输入你在聊天室的昵称
+        <br/>
+        <br/>
+        <input type="text" style="width:180px;" placeholder="请输入用户名" id="username" name="username" />
+        <input type="button" style="border-color: #0ae;color: #fff;background-color: #0ae;" value="提交" id="usernamesubmit" class="button"/>
+        <br/>
+        <br/>
+        为保证功能正常使用，请使用谷歌内核的浏览器
+    </div>
+</div>
+<div id="chatbox" style="display:none;">
+    <div style="background:#3d3d3d;height: 28px; width: 100%;font-size:12px;">
+        <div style="line-height: 28px;color:#fff;">
+            <span style="text-align:left;margin-left:10px;">Websocket多人聊天室</span>
+            <span style="float:right; margin-right:10px;"><span id="showusername"></span> |
+                    <a href="javascript:;" style="color:#fff;" id="logoutsubmit">退出</a></span>
+        </div>
+    </div>
+    <div class="center"><button type="button" id="history" class="button">点击加载历史聊天记录</button></div>
+    <div id="doc">
+        <div id="chat">
+            <div id="onlinecount" style="background:#EFEFF4; font-size:12px; margin-top:10px; margin-left:10px; color:#666;"></div>
+            </div>
+            <div id="message" class="message">  
+            </div>
+    </div>
+    <div class="input-box">
+        <div class="input">
+            <!-- <input type="text" maxlength="140" placeholder="请输入聊天内容，按Ctrl提交" id="content" name="content"> -->
+            <textarea name="content" id="content" cols="30" rows="5"></textarea>
+        </div>
+        <div class="action">
+            <button type="button" id="msgsubmit" class="button">提交</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="./main.js"></script>
+</body>
+</html>
